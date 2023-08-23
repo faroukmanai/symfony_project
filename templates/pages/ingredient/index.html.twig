@@ -25,16 +25,24 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Date de création</th>
+                <th scope="col">Modification</th>
+                <th scope="col">Suppression</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ingredient in ingredients%}
                     <div>
-                        <tr class="table-primary">
+                        <tr>
                             <th scope="row">{{ ingredient.id }}</th>
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.price }}</td>
                             <td>{{ ingredient.createdAt|date('d-m-y') }}</td>
+                            <td>
+                                <a href="{{path('ingredient.edit',{id: ingredient.id}) }}" class="btn btn-secondary">Modifier</a>
+                            </td>
+                            <td>
+                                <a href="#" data-id="{{ ingredient.id }}" class="delete-link btn btn-danger">Supprimer</a>
+                            </td>
                         </tr>
                     </div>
                 {% endfor %}   
@@ -48,4 +56,42 @@
         <h5> Il n'y a pas d'ingrédients</h5>
         {% endif %}
     </div>
+
+    <!-- Modale de confirmation Bootstrap -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer cet ingrédient?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a href="#" class="btn btn-danger" id="confirmDeleteButton">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            let deleteLinks = document.querySelectorAll('.delete-link');
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    let ingredientId = event.target.getAttribute('data-id');
+                    let deleteModal = document.querySelector('#deleteModal');
+                    let confirmDeleteButton = document.querySelector('#confirmDeleteButton');
+                    confirmDeleteButton.href = `/ingredient/suppression/${ingredientId}`;
+                    $(deleteModal).modal('show');
+                });
+            });
+        });
+    </script>
 {% endblock %}
+
+
