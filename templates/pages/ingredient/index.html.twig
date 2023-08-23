@@ -11,6 +11,9 @@
     {% endfor %}
     {% if not ingredients.items is same as ([])%}
         <h1>Mes ingredients</h1>
+
+        <a href="{{ path('ingredient.new') }}" class="btn btn-primary mb-4">Créer un ingrédient</a>
+
         <div class="count">
             <h5>Il y a {{ ingredients.getTotalItemCount }} ingrédients.</h5>
         </div>
