@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe | mes recettes{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+    {% if not recipes.items is same as ([])%}
+        <h1>Mes recettes</h1>
+
+        <div class="count">
+            <h5>Il y a {{ recipes.getTotalItemCount }} recttes.</h5>
+        </div>
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Numéro</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Difficulté</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Modification</th>
+                <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes%}
+                    <div>
+                        <tr>
+                            <th scope="row">{{ recipe.id }}</th>
+                            <td>{{ recipe.name }}</td>
+                            <td>{{ recipe.price }}</td>
+                            <td>{{ recipe.difficulty }}</td>
+                            <td>{{ recipe.createdAt|date('d-m-y') }}</td>
+                            <td>
+                               todo
+                            </td>
+                            <td>
+                               todo
+                            </td>
+                        </tr>
+                    </div>
+                {% endfor %}   
+            </tbody>
+        </table>
+        {# display navigation #}
+        <div class="navigation d-flex justify-content-center mt-5">
+            {{ knp_pagination_render(recipes) }}
+        </div>
+        {% else %}
+        <h5> Il n'y a pas de recettes</h5>
+        {% endif %}
+    </div>
+
+    <!-- Modale de confirmation Bootstrap -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer cet ingrédient?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <a href="#" class="btn btn-danger" id="confirmDeleteButton">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            let deleteLinks = document.querySelectorAll('.delete-link');
+            deleteLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    let ingredientId = event.target.getAttribute('data-id');
+                    let deleteModal = document.querySelector('#deleteModal');
+                    let confirmDeleteButton = document.querySelector('#confirmDeleteButton');
+                    confirmDeleteButton.href = `/ingredient/suppression/${ingredientId}`;
+                    $(deleteModal).modal('show');
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
