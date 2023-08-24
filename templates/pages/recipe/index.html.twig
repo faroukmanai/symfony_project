@@ -40,10 +40,10 @@
                             <td>{{ recipe.difficulty ? recipe.difficulty : 'Non spécifié' }}</td>
                             <td>{{ recipe.createdAt|date('d-m-y') }}</td>
                             <td>
-                               todo
+                              <a href="{{path('recipe.edit',{id: recipe.id}) }}" class="btn btn-secondary">Modifier</a>
                             </td>
                             <td>
-                               todo
+                               <a href="#" data-id="{{ recipe.id }}" class="delete-link btn btn-danger">Supprimer</a>
                             </td>
                         </tr>
                     </div>
@@ -70,7 +70,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Êtes-vous sûr de vouloir supprimer cet ingrédient?
+                    Êtes-vous sûr de vouloir supprimer cette recette?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -85,10 +85,10 @@
             deleteLinks.forEach(function(link) {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
-                    let ingredientId = event.target.getAttribute('data-id');
+                    let recipeId = event.target.getAttribute('data-id');
                     let deleteModal = document.querySelector('#deleteModal');
                     let confirmDeleteButton = document.querySelector('#confirmDeleteButton');
-                    confirmDeleteButton.href = `/ingredient/suppression/${ingredientId}`;
+                    confirmDeleteButton.href = `/recette/suppression/${recipeId}`;
                     $(deleteModal).modal('show');
                 });
             });

@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 class RecipeType extends AbstractType
@@ -114,13 +115,14 @@ class RecipeType extends AbstractType
             ])
             ->add('isFavorite', CheckboxType::class,[
                 'attr' => [
-                    'class' => 'form-check-input',
+                    'class' => 'form-check-input'
                 ],
                 'required' => false,
-                'label' => 'Favoris ? ',
+                'label' => 'Favoris',
                 'label_attr' => [
-                    'class' => 'form-check-label'
+                    'class' => 'form-check-label' 
                 ],
+
                 'constraints' => [
                     new Assert\NotNull(),
                 ]
