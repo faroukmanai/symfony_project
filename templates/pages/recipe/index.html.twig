@@ -4,9 +4,14 @@
 
 {% block body %}
     <div class="container mt-4">
+    {% for message in app.flashes('success') %}
+        <div class=" alert alert-success">
+            {{message}}
+        </div>
+        {% endfor %}
     {% if not recipes.items is same as ([])%}
         <h1>Mes recettes</h1>
-
+        <a href="{{ path('recipe.new') }}" class="btn btn-primary mb-4">Créer une recette</a>
         <div class="count">
             <h5>Il y a {{ recipes.getTotalItemCount }} recttes.</h5>
         </div>
@@ -17,6 +22,7 @@
                 <th scope="col">Numéro</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prix</th>
+                <th scope="col">Time</th>
                 <th scope="col">Difficulté</th>
                 <th scope="col">Date de création</th>
                 <th scope="col">Modification</th>
@@ -29,8 +35,9 @@
                         <tr>
                             <th scope="row">{{ recipe.id }}</th>
                             <td>{{ recipe.name }}</td>
-                            <td>{{ recipe.price }}</td>
-                            <td>{{ recipe.difficulty }}</td>
+                            <td>{{ recipe.price ? recipe.price : 'Non spécifié' }}</td>
+                            <td>{{ recipe.time ? recipe.time : 'Non spécifié' }}</td>
+                            <td>{{ recipe.difficulty ? recipe.difficulty : 'Non spécifié' }}</td>
                             <td>{{ recipe.createdAt|date('d-m-y') }}</td>
                             <td>
                                todo
