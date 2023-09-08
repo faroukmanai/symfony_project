@@ -31,8 +31,8 @@
           <li class="nav-item dropdown" style="margin-right: 5rem;">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{{ path('user.edit', {id: app.user.id}) }}">Modifier mes information</a>
-              <a class="dropdown-item" href="{{ path('user.edit.password', {id: app.user.id}) }}">Modifier mon mot de passe</a>
+              <a class="dropdown-item" href="{{ path('user.edit', {id: app.user.id}) }}">Modifier mes informations</a>
+              <a class="dropdown-item" href="{{ path('user.edit.password', {id: app.user.id}) }}">Modifier mot de passe</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ path('security.logout') }}">Déconnexion</a>
             </div>
